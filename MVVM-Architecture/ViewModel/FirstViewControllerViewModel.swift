@@ -8,21 +8,23 @@
 import Foundation
 import Combine
 
+enum Action {
+    case show
+    case hide
+}
+
 class FirstViewControllerViewModel {
-    // var showLoading: (() -> Void)?
-    // func showLoading()
     private var cancellables: Set<AnyCancellable> = []
-    var showLoading = PassthroughSubject<Void, Never>()
-    var hideLoading = PassthroughSubject<Void, Never>()
+    var loading = PassthroughSubject<Action, Never>()
     @Published var showMessage: String?
     
     func getRandomJoke() {
-        showLoading.send()
+        loading.send(.show)
         Service.getJoke().receive(on: DispatchQueue.main).sink { [weak self] completion in
             switch completion {
             case .finished:
                 print("Finished")
-                self?.hideLoading.send()
+                self?.loading.send(.hide)
             case .failure(let error):
                 print("error: ", error)
             }
