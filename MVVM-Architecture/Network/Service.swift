@@ -18,15 +18,13 @@ class Service {
             
             URLSession.shared.dataTask(with: request) { data, response, error in
                 guard let data = data, error == nil else { return }
-                DispatchQueue.main.async {
-                    do {
-                        let json = try JSONDecoder().decode(Joke.self, from: data)
-                        promise(.success(json))
-                        print(json)
-                    } catch {
-                        promise(.failure(error))
-                        print(error.localizedDescription)
-                    }
+                do {
+                    let json = try JSONDecoder().decode(Joke.self, from: data)
+                    promise(.success(json))
+                    print(json)
+                } catch {
+                    promise(.failure(error))
+                    print(error.localizedDescription)
                 }
             }.resume()
         }
