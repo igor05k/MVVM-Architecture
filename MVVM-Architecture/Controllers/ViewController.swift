@@ -24,13 +24,13 @@ class ViewController: UIViewController {
     }
     
     func setupBind() {
-        viewModel.hideLoading.sink { [weak self ] _ in
+        viewModel.hideLoading.sink { [weak self] in
             self?.jokeButton.configuration?.showsActivityIndicator = false
             self?.jokeButton.configuration?.title = "Get Joke"
             self?.jokeButton.isEnabled = true
         }.store(in: &cancellables)
         
-        viewModel.showLoading.sink { [weak self ] _ in
+        viewModel.showLoading.sink { [weak self] in
             self?.jokeButton.configuration?.showsActivityIndicator = true
             self?.jokeButton.configuration?.title = nil
             self?.jokeButton.isEnabled = false
