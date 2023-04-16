@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		82713F5D2912CC6A00930394 /* Joke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82713F5C2912CC6A00930394 /* Joke.swift */; };
-		82713F64291308BF00930394 /* FirstViewControllerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82713F63291308BF00930394 /* FirstViewControllerViewModel.swift */; };
+		82713F64291308BF00930394 /* FirstViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82713F63291308BF00930394 /* FirstViewModel.swift */; };
 		8274C05229EB7543008D67F2 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 8274C05129EB7543008D67F2 /* RxCocoa */; };
 		8274C05429EB7543008D67F2 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 8274C05329EB7543008D67F2 /* RxRelay */; };
 		8274C05629EB7543008D67F2 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 8274C05529EB7543008D67F2 /* RxSwift */; };
@@ -23,7 +23,7 @@
 
 /* Begin PBXFileReference section */
 		82713F5C2912CC6A00930394 /* Joke.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Joke.swift; sourceTree = "<group>"; };
-		82713F63291308BF00930394 /* FirstViewControllerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewControllerViewModel.swift; sourceTree = "<group>"; };
+		82713F63291308BF00930394 /* FirstViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewModel.swift; sourceTree = "<group>"; };
 		82C05CCA2911B3F900960D03 /* MVVM-Architecture.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MVVM-Architecture.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		82C05CCD2911B3F900960D03 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		82C05CCF2911B3F900960D03 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -95,7 +95,7 @@
 		82713F62291308A600930394 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				82713F63291308BF00930394 /* FirstViewControllerViewModel.swift */,
+				82713F63291308BF00930394 /* FirstViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -211,7 +211,7 @@
 			files = (
 				82C05CD22911B3F900960D03 /* ViewController.swift in Sources */,
 				82713F5D2912CC6A00930394 /* Joke.swift in Sources */,
-				82713F64291308BF00930394 /* FirstViewControllerViewModel.swift in Sources */,
+				82713F64291308BF00930394 /* FirstViewModel.swift in Sources */,
 				82C05CE22911B5C600960D03 /* Service.swift in Sources */,
 				82C05CCE2911B3F900960D03 /* AppDelegate.swift in Sources */,
 				82C05CD02911B3F900960D03 /* SceneDelegate.swift in Sources */,

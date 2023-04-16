@@ -10,30 +10,18 @@ import RxCocoa
 import RxRelay
 import RxSwift
 
-protocol FirstVCViewModel {
-    var showLoading: (() -> Void)? { get set }
-    var hideLoading: (() -> Void)? { get set }
-    var showMessage: ((String) -> Void)? { get set }
-    
-    func getRandomJoke()
-}
-
-class FirstViewControllerViewModel: FirstVCViewModel {
+class FirstViewModel {
     
     private let isLoading = BehaviorRelay<Bool>(value: false)
     private let disposeBag = DisposeBag()
-    
-    var showLoading: (() -> Void)?
-    var hideLoading: (() -> Void)?
-    var showMessage: ((String) -> Void)?
-    
+    private(set) var joke = BehaviorRelay<Joke?>(value: nil)
+
     func getRandomJoke() {
         let request = Service.getJoke()
-        
         request.subscribe(onNext: { result in
             switch result {
             case .success(let data):
-                print("data===========", data)
+                self.joke.accept(data)
             case .failure(let error):
                 print("error==========", error)
             }
