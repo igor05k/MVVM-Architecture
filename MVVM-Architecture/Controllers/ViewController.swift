@@ -17,15 +17,28 @@ class ViewController: UIViewController {
     
     private let disposeBag = DisposeBag()
     
+    private let activityIndicator = UIActivityIndicatorView(style: .large)
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        viewModel.getRandomJoke()
+        setActivityIndicator()
+        bindRx()
+    }
+    
     required init?(coder: NSCoder) {
         viewModel = FirstViewModel()
         super.init(coder: coder)
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setupVisualElements()
-        bindRx()
+    func setActivityIndicator() {
+        self.view.addSubview(activityIndicator)
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            activityIndicator.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
+        ])
     }
     
     func setupVisualElements() {
@@ -40,12 +53,46 @@ class ViewController: UIViewController {
         }).disposed(by: disposeBag)
         
         viewModel.joke
-            .skip(1)
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [weak self] joke in
                 self?.jokeLbl.text = "\(joke?.body[0].setup ?? ""). \(joke?.body[0].punchline ?? "")"
                 self?.enableButton()
             }).disposed(by: disposeBag)
+        
+        viewModel.isLoading
+            .take(2) // limita a qtd de eventos ouvidos para 2 (true e false); assim, o indicator só é mostrado 1 vez.
+            .subscribe(onNext: { [weak self] isLoading in
+                if isLoading {
+                    self?.hideElements()
+                    self?.animateLoading()
+                } else {
+                    self?.showElements()
+                    self?.stopLoading()
+                }
+                
+            }).disposed(by: disposeBag)
+    }
+    
+    func animateLoading() {
+        DispatchQueue.main.async { [weak self] in
+            self?.activityIndicator.startAnimating()
+        }
+    }
+    
+    func stopLoading() {
+        DispatchQueue.main.async { [weak self] in
+            self?.activityIndicator.stopAnimating()
+        }
+    }
+    
+    func hideElements() {
+        jokeLbl.isHidden = true
+        jokeButton.isHidden = true
+    }
+    
+    func showElements() {
+        jokeLbl.isHidden = false
+        jokeButton.isHidden = false
     }
     
     func disableButton() {
