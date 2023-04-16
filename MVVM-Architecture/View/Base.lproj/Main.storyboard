@@ -20,9 +20,6 @@
                                 <rect key="frame" x="20" y="287.33333333333331" width="350" height="35"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Button"/>
-                                <connections>
-                                    <action selector="getJokeButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="QRL-Wq-Eus"/>
-                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BQh-mH-cNP">
                                 <rect key="frame" x="10" y="247.00000000000003" width="370" height="20.333333333333343"/>

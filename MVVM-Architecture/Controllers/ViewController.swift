@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RxSwift
 
 class ViewController: UIViewController {
     
@@ -14,6 +15,8 @@ class ViewController: UIViewController {
     
     private var viewModel: FirstVCViewModel
     
+    private let disposeBag = DisposeBag()
+    
     required init?(coder: NSCoder) {
         viewModel = FirstViewControllerViewModel()
         super.init(coder: coder)
@@ -21,31 +24,26 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupVisualElements()
+        bindRx()
+    }
+    
+    func setupVisualElements() {
         jokeLbl.text = "Joke"
         jokeButton.configuration?.title = "Get Joke"
-        setupBinding()
     }
     
-    func setupBinding() {
-        viewModel.showLoading = { [weak self] in
-            self?.jokeButton.configuration?.showsActivityIndicator = true
-            self?.jokeButton.configuration?.title = nil
-            self?.jokeButton.isEnabled = false
-        }
-        
-        viewModel.hideLoading = { [weak self] in
-            self?.jokeButton.configuration?.showsActivityIndicator = false
-            self?.jokeButton.configuration?.title = "Get joke"
-            self?.jokeButton.isEnabled = true
-        }
-        
-        viewModel.showMessage = { message in
-            self.jokeLbl.text = message
-        }
+    func bindRx() {
+        jokeButton.rx.tap.subscribe(onNext: { [weak self] in
+            self?.viewModel.getRandomJoke()
+            self?.disableButton()
+        }).disposed(by: disposeBag)
     }
     
-    @IBAction func getJokeButton(_ sender: UIButton) {
-        viewModel.getRandomJoke()
+    func disableButton() {
+        jokeButton.configuration?.showsActivityIndicator = true
+        jokeButton.configuration?.title = nil
+        jokeButton.isEnabled = false
     }
 }
 

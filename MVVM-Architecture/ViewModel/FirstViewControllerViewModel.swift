@@ -6,6 +6,9 @@
 //
 
 import Foundation
+import RxCocoa
+import RxRelay
+import RxSwift
 
 protocol FirstVCViewModel {
     var showLoading: (() -> Void)? { get set }
@@ -16,20 +19,24 @@ protocol FirstVCViewModel {
 }
 
 class FirstViewControllerViewModel: FirstVCViewModel {
+    
+    private let isLoading = BehaviorRelay<Bool>(value: false)
+    private let disposeBag = DisposeBag()
+    
     var showLoading: (() -> Void)?
     var hideLoading: (() -> Void)?
     var showMessage: ((String) -> Void)?
     
     func getRandomJoke() {
-        showLoading?()
-        Service.getJoke { [weak self] result in
-            self?.hideLoading?()
+        let request = Service.getJoke()
+        
+        request.subscribe(onNext: { result in
             switch result {
-            case .success(let success):
-                self?.showMessage?("\(success.body[0].setup). \(success.body[0].punchline)")
-            case .failure(let failure):
-                print(failure)
+            case .success(let data):
+                print("data===========", data)
+            case .failure(let error):
+                print("error==========", error)
             }
-        }
+        }).disposed(by: disposeBag)
     }
 }
