@@ -29,17 +29,4 @@ class FirstViewModel {
             }
         }).disposed(by: disposeBag)
     }
-    
-//    func getRandomJoke() {
-//        showLoading?()
-//        Service.getJoke { [weak self] result in
-//            self?.hideLoading?()
-//            switch result {
-//            case .success(let success):
-//                self?.showMessage?("\(success.body[0].setup). \(success.body[0].punchline)")
-//            case .failure(let failure):
-//                print(failure)
-//            }
-//        }
-//    }
 }
